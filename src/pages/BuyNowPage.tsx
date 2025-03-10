@@ -59,7 +59,7 @@ const BuyNowPage: React.FC = () => {
         },
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+           "Content-Type": "application/json",,
             Authorization: `Bearer ${token}`,
           },
         }
