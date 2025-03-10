@@ -41,10 +41,13 @@ const AdminPanel: React.FC = () => {
   };
   const fetchProducts = async () => {
     try {
+       const token = localStorage.getItem("adminToken");
       const response = await axios.get(`${server}/api/admin/getallproduct`, {
-        withCredentials: true,
-        headers: { "Content-Type": "application/json" },
-      });
+          headers: {
+            "Content-Type": "application/json", 
+            Authorization: `Bearer ${token}`,
+          },
+        });
       setProducts(response.data.products); // Fix: Accessing `products` inside the response
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -71,12 +74,15 @@ const AdminPanel: React.FC = () => {
     if (newImage) formData.append("image", newImage); // Fix: Sending actual File object
 
     try {
+      const token = localStorage.getItem("adminToken");
       await axios.put(
         `${server}/api/admin/updateproduct/${editProduct._id}`,
         formData,
         {
-          withCredentials: true,
-          headers: { "Content-Type": "multipart/form-data" }, // Fix: Correct content type for file upload
+          headers: {
+             "Content-Type": "multipart/form-data", 
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       fetchProducts();
@@ -89,10 +95,13 @@ const AdminPanel: React.FC = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      await axios.delete(`${server}/api/admin/deleteproduct/${id}`, {
-        withCredentials: true,
-        headers: { "Content-Type": "application/json" },
-      });
+      const token = localStorage.getItem("adminToken");
+      await axios.delete(`${server}/api/admin/deleteproduct/${id}`,{
+          headers: {
+            "Content-Type": "application/json", 
+            Authorization: `Bearer ${token}`,
+          },
+        });
       fetchProducts();
     } catch (error) {
       console.error("Error deleting product:", error);
