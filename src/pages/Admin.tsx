@@ -35,7 +35,7 @@ const AdminPanel: React.FC = () => {
     }
   }, []);
   const handleLogout = () => {
-    localStorage.removeItem("rupkalaid");
+    localStorage.removeItem("adminToken");
     setIsAuthenticated(false);
     navigate("/");
   };
