@@ -1,11 +1,11 @@
 import { Navigate, Outlet } from "react-router-dom";
-import Cookies from "js-cookie";
 
 const ProtectRoute: React.FC<{ redirect?: string }> = ({ redirect = "/login" }) => {
-  const token = Cookies.get("rupkalaid");
-  if (!token) return <Navigate to={redirect} />;
+  const token = localStorage.getItem("rupkalaid"); // Get token from localStorage
 
-  return <Outlet />;
+  if (!token) return <Navigate to={redirect} />; // Redirect if no token
+
+  return <Outlet />; // Allow access to protected route
 };
 
 export default ProtectRoute;
